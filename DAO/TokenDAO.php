@@ -1,15 +1,36 @@
 <?php
 
-require_once('../config/Constantes.php');
+require_once('config/Constantes.php');
+require_once('config/API.php');
 
-class Token
+class TokenDAO 
 {
-    public function g3n3r4t10n()
+
+    public $sirepol;
+
+    public function __construct()
     {
-        $val = true;
-        $token = bin2hex(openssl_random_pseudo_bytes(16, $val));
+        $this->api = new APIDB;
+    }
+
+    public function validarToken($token) 
+    {
+
+        $sql = "SELECT * FROM public.token_organismos WHERE token = '$token'";
+        $query = $this->api->query($sql);
+        if($query->rowCount() >= 1)
+        {
+            $token = $query->fetchAll(PDO::FETCH_ASSOC);
+        }else{
+            $token = array(
+                0 => array(
+                    "No_Query" => 0
+                )
+            );
+        }
         return $token;
     }
+
 }
 
 ?>

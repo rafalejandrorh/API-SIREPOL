@@ -2,6 +2,7 @@
 
 require_once('config/Constantes.php');
 require_once('config/Trazas.php');
+require_once('config/API.php');
 
 class TrazasDAO 
 {
@@ -11,13 +12,14 @@ class TrazasDAO
     public function __construct()
     {   
         $this->trazas = new TrazasDB;
+        $this->traza = new APIDB;
     }
 
-    public function GuardarTraza($ip, $mac, $cedula_solicitante, $ente_solicitante, $accion, $json, $valor, $token) 
+    public function GuardarTraza($ip, $mac, $usuario, $ente, $accion, $response, $request, $token) 
     {
-        $sql = "INSERT INTO auditoria_mppd (ip, mac, cedula_solicitante, ente_solicitante, fecha_solicitud, accion, json, valor_consulta, token)
-                VALUES ('$ip', '$mac', '$cedula_solicitante', '$ente_solicitante', 'NOW()', '$accion', '$json', '$valor', '$token')";
-        $this->trazas->query($sql);
+        $sql = "INSERT INTO trazas_api (ip, mac, usuario, ente, fecha_request, action, response, request, token)
+                VALUES ('$ip', '$mac', '$usuario', '$ente', NOW(), '$accion', '$response', '$request', '$token')";
+        $this->traza->query($sql);
     }
 
 }

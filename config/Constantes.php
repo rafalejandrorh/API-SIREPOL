@@ -14,6 +14,15 @@ define('DB_NAMEDB_SIREPOL', 'SIREPOL');
 define('DB_TYPE_SIREPOL', 'pgsql');
 define('DB_PORT_SIREPOL', '5432');
 
+//Conexión a la Base de Datos de Autenticación de la API
+//Conexión a la Base de Datos de SIREPOL
+define('DB_HOST_API', 'localhost');
+define('DB_USER_API', 'postgres');
+define('DB_PASSWORD_API', 'Caracasfc*2021');
+define('DB_NAMEDB_API', 'SIIGEAPI');
+define('DB_TYPE_API', 'pgsql');
+define('DB_PORT_API', '5432');
+
 //Conexión a la Base de Datos de Auditoría
 define('DB_HOST_TRAZAS', 'localhost');
 define('DB_USER_TRAZAS', 'postgres');
@@ -64,5 +73,11 @@ define('ERROR_DESCRIPTION_UNAUTHORIZED_ACTION', 'Unauthorized');
 
 define('Token', 'PLIbWwxXce3VpvBT_O977da8XECEpJTJt');
 define('Fecha_vencimiento_Token', '2022-10-09');
+
+/// Ministerio de la Defensa ///
+
+define('MinDefensa', 'Ministerio del Poder Popular para la Defensa');
+define('OrganismoMinDefensa', 'DGCIM');
+define('DependenciaMinDefensa', 'División de Investigación');
 
 ?>
