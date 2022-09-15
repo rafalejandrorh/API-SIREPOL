@@ -31,14 +31,14 @@ class FuncionariosBLL
         return $this->FuncionariosDTO->errorUnauthorizedAction();
     }
 
-    function ServicioConsultaFuncionario($parametros) 
+    public function ServicioConsultaFuncionario($parametros) 
     {
         $servicio = $parametros['Service'];
         $token = $this->TokenDAO->validarToken($parametros['token']);
         
         if(!isset($token[0]['No_Query']))
         {
-            if(date('Y-m-d') < $token[0]['expires_at'] && $parametros['token'] == $token[0]['token'])
+            if(date('Y-m-d') < $token[0]['expires_at'] && $parametros['token'] == $token[0]['token'] && $token[0]['estatus'] == true)
             {
                 if($parametros['tipo'] != null && $parametros['valor'] != null && $parametros['ip'] != null && $parametros['mac'] != null && $parametros['ente'] != null && $parametros['usuario'] != null)
                 {
@@ -62,8 +62,10 @@ class FuncionariosBLL
                 }
             }else if(date('Y-m-d') > $token[0]['expires_at'] && $parametros['token'] == $token[0]['token']){
                 $response = $this->FuncionariosDTO->errorCodeTokenExpire();
-            }else if(date('Y-m-d') > $token[0]['expires_at'] && $parametros['token'] == $token[0]['token']){
-                $response = $this->FuncionariosDTO->errorNoToken();
+            }else if(date('Y-m-d') < $token[0]['expires_at'] && $parametros['token'] == null && $token[0]['estatus'] == true){
+                $response = $this->FuncionariosDTO->errorCodeNoToken();
+            }else if(date('Y-m-d') < $token[0]['expires_at'] && $parametros['token'] == $token[0]['token'] && $token[0]['estatus'] == false){
+                $response = $this->FuncionariosDTO->errorCodeInactiveToken();
             }
         }else{
             $response = $this->FuncionariosDTO->errorCodeToken();

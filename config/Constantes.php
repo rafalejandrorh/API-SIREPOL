@@ -65,6 +65,10 @@ define('ERROR_DESCRIPTION_NO_TOKEN', 'No Token');
 define('ERROR_CODE_INVALID_SEARCH', 409);
 define('ERROR_DESCRIPTION_INVALID_SEARCH', 'Invalid Search');
 
+// Nok (Token Inactivo)
+define('ERROR_CODE_INACTIVE_TOKEN', 410);
+define('ERROR_DESCRIPTION_INACTIVE_TOKEN', 'Inactive Token');
+
 // Nok (Acción no permitida en el servicio)
 define('ERROR_UNAUTHORIZED_ACTION', 500);
 define('ERROR_DESCRIPTION_UNAUTHORIZED_ACTION', 'Unauthorized');

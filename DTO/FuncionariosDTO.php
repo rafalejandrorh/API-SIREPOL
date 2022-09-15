@@ -77,6 +77,15 @@ class FuncionariosDTO
         return $response;
     }
 
+    public function errorCodeInactiveToken()
+    {
+        $response = [
+            'Code' => ERROR_CODE_INACTIVE_TOKEN,
+            'Status' => ERROR_DESCRIPTION_INACTIVE_TOKEN,
+        ];
+        return $response;  
+    }
+
     public function errorUnauthorizedAction()
     {
         $response = [

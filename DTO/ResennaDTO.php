@@ -68,13 +68,22 @@ class ResennaDTO
         return $response;
     }
 
-    public function errorNoToken()
+    public function errorCodeNoToken()
     {
         $response = [
             'Code' => ERROR_NO_TOKEN,
             'Status' => ERROR_DESCRIPTION_NO_TOKEN,
         ];
         return $response;
+    }
+    
+    public function errorCodeInactiveToken()
+    {
+        $response = [
+            'Code' => ERROR_CODE_INACTIVE_TOKEN,
+            'Status' => ERROR_DESCRIPTION_INACTIVE_TOKEN,
+        ];
+        return $response;  
     }
 
     public function errorUnauthorizedAction()

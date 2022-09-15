@@ -26,7 +26,7 @@ class ResennaBLL
         return $this->ResennaDTO->errorUnauthorizedAction();
     }
 
-    function ServicioConsultaResennado($parametros) 
+    public function ServicioConsultaResennado($parametros) 
     {
         $servicio = $parametros['Service'];
         $valor = $parametros['tipo'].': '.$parametros['valor'];
@@ -34,7 +34,7 @@ class ResennaBLL
         
         if(!isset($token[0]['No_Query']))
         {
-            if(date('Y-m-d') < $token[0]['expires_at'] && $parametros['token'] == $token[0]['token'])
+            if(date('Y-m-d') < $token[0]['expires_at'] && $parametros['token'] == $token[0]['token'] && $token[0]['estatus'] == true)
             {
                 if($parametros['tipo'] != null && $parametros['valor'] != null && $parametros['ip'] != null && $parametros['mac'] != null && $parametros['ente'] != null && $parametros['usuario'] != null)
                 {
@@ -53,10 +53,12 @@ class ResennaBLL
                 }else{
                     $response = $this->ResennaDTO->errorCodeRequest($servicio, $parametros);
                 }
-            }else if(date('Y-m-d') > $token[0]['expires_at'] && $parametros['token'] == $token[0]['token']){
+            }else if(date('Y-m-d') > $token[0]['expires_at'] && $parametros['token'] == $token[0]['token'] && $token[0]['estatus'] == true){
                 $response = $this->ResennaDTO->errorCodeTokenExpire();
-            }else if(date('Y-m-d') > $token[0]['expires_at'] && $parametros['token'] == $token[0]['token']){
-                $response = $this->ResennaDTO->errorNoToken();
+            }else if(date('Y-m-d') < $token[0]['expires_at'] && $parametros['token'] == null && $token[0]['estatus'] == true){
+                $response = $this->ResennaDTO->errorCodeNoToken();
+            }else if(date('Y-m-d') < $token[0]['expires_at'] && $parametros['token'] == $token[0]['token'] && $token[0]['estatus'] == false){
+                $response = $this->ResennaDTO->errorCodeInactiveToken();
             }
         }else{
             $response = $this->ResennaDTO->errorCodeToken();
@@ -66,4 +68,5 @@ class ResennaBLL
     }
 
 }
+
 ?>
